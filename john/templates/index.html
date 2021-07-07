@@ -1,0 +1,363 @@
+{% load static %}
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!-- ===== CSS ===== -->
+        <link rel="stylesheet" href="{% static 'assets/css/styles.css' %}">
+        <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+        <!-- ===== BOX ICONS ===== -->
+        <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@200;300;400&display=swap" rel="stylesheet">
+
+        <link href="https://fonts.googleapis.com/css2?family=Trade+Winds&display=swap" rel="stylesheet">
+
+        <link href="https://fonts.googleapis.com/css2?family=Merienda&display=swap" rel="stylesheet">
+
+
+        <title>REAPERS182</title>
+    </head>
+    <body>
+        <!--===== HEADER =====-->
+        <header class="l-header">
+            <nav class="nav bd-grid">
+                
+                <div>
+                    <h3 style="font-family: 'Raleway', sans-serif;;"><a href="#" class="nav__logo">R182&nbsp;<i class='bx bx-user-circle'></i>&nbsp;{{ user.username }}</a></h3>
+                </div>
+
+                <div class="nav__menu" id="nav-menu">
+                    <ul class="nav__list">
+                        <li class="nav__item"><a href="#home" class="nav__link active">Home</a></li>
+                        {% if user.is_active %}
+                        <li class="nav__item"><a href="#books" class="nav__link">Snaps</a></li>
+                        
+                        
+                        <li class="nav__item"><a href="#news" class="nav__link">News</a></li>
+                        {% endif %}
+                        {% if not user.is_active %}
+                        <li class="nav__item"><a href="#about" class="nav__link">About</a></li>
+                        {% endif %}
+                        <li class="nav__item"><a href="#skills" class="nav__link">Play</a></li>
+                        <li class="nav__item"><a href="#portfolio" class="nav__link">Teams</a></li>
+                        {% if not user.is_active %}
+                        <li class="nav__item"><a href="#contact" class="nav__link">Contact</a></li>
+                        {% endif %}
+                        <li class="nav__item"><a href="#footer" class="nav__link"><h2><i class="bx bx-coffee bx-burst"></i></h2></a></li>
+                    </ul>
+                </div>
+
+                <div class="nav__toggle" id="nav-toggle">
+                    <i class='bx bx-menu'></i>
+                </div>
+            </nav>
+        </header>
+
+        <main class="l-main">
+            <!--===== HOME =====-->
+            <section class="home" id="home">
+                <div class="home__container bd-grid">
+                    <h1 class="home__title">{{ home.greetings_2 }}<br><br><i class='bx bx-coffee-togo bx-fade-up'></i><i class='bx bx-joystick bx-fade-up'></i><i class='bx bxs-skull bx-fade-up'></i>&nbsp;</h1>
+                    
+                    <div class="home__scroll">
+                        <a href="#books" class="home__scroll-link"><i class='bx bx-up-arrow-alt' ></i>Scroll Down</a>
+                    </div>
+
+                    <img src="{{ home.picture.url }}" alt="" class="home__img" >
+                </div>
+            </section>
+            <br>
+            {% if not user.is_active %}
+            <br>
+            <small><p  style="text-align: center;">If you are a member of Reapers182 , please follow the instructions provided to you<br> to log in... In order to view Clan
+            Only contect.</p></small>
+            {% endif %}
+
+            <!--Snap of the week-->
+            {% if user.is_active %}
+            <section class="portfolio section" id="books">
+                <h2 class="section-title">Snaps Of The Week</h2>
+            
+            
+                <div class="portfolio__container bd-grid">
+            
+                    {% for book in books %}
+            
+            
+                    <div class="portfolio__img">
+            
+                        <h4 class="titlep">{{book.title }}</h4>
+            
+                        <img src="{{ book.image.url }}" alt="" style="opacity: 100%;">
+            
+                        
+                    </div>
+            
+                    {% endfor %}
+            
+                </div>
+                
+                    <br>
+                
+            </section>
+            {% endif %}
+            
+            <!--NEWS-->
+            
+            <section class="about section" id="news">
+                {% if user.is_active %}
+                <h2 class="section-title">News</h2>
+            
+            
+            
+                <div class="about__container bd-grid">
+            
+                    
+            
+                    <div>
+                        <h2 class="about__subtitle" style="text-align: left;">{{ news.topic }}</h2>
+                        
+                        <p class="about__text">{{ news.desc }}</p>
+            
+                        <i><small style="color:grey;"><p class="about__text">{{ news.author }}</p></small></i>
+                        <i><small><small style="color:grey;"><p class="about__text">- {{ news.date }}</p></small></small></i>
+                    </div>
+                    <div class="about__img2">
+                        <!-- <img src="{% static 'assets/img/perfil.png' %}" alt=""> -->
+                       <img src="{{ news.image.url }}" alt="">
+                    </div>
+                </div>
+            
+            
+           
+            {% endif %}
+            </section>
+            
+
+
+            
+            <!--===== ABOUT =====-->
+            {% if not user.is_active %}
+            
+            
+            <section class="about section" id="about">
+                <h2 class="section-title">About Us</h2>
+                
+                
+                
+                <div class="about__container bd-grid">
+                    
+                    <div class="about__img">
+                        <!-- <img src="{% static 'assets/img/perfil.png' %}" alt=""> -->
+                        <img src="{{ about.profile_img.url }}" alt="">
+                    </div>
+
+                    <div>
+                        <h2 class="about__subtitle">{{ about.heading }}</h2>
+                        <span class="about__profession">{{ about.career }}</span>
+                        <p class="about__text">{{ about.description }}</p>
+
+                        <div class="about__social">
+
+                            {% for profile in about.profile_set.all %}
+                                <a href="{{ profile.link }}" class="about__social-icon">
+                                    <i class='bx bxl-{{ profile.social_name }}' ></i>
+                                </a>
+                            {% endfor %}
+                            
+                        </div>
+                    </div>
+                </div>
+                
+                
+                
+            </section>
+            {% endif %}
+        
+
+
+
+
+            
+            
+            
+
+            <!--===== SKILLS =====-->
+            <section class="skills section" id="skills">
+                <h2 class="section-title">We Play :</h2>
+
+                <div class="skills__container bd-grid">
+                    <div class="skills__box">
+                        {% for category in categories %}
+                        <h3 class="skills__subtitle">{{category.name}}</h3>
+                            {% for skills in category.skills_set.all %}
+                            
+                                <span class="skills__name">{{skills.skill_name}}</span>
+                            {% endfor %}
+                        {% endfor %}
+                        
+                    </div>
+
+                    <div class="skills__img">
+                        <img src="{% static 'assets/img/m.png' %}" alt="">
+                        <br>
+                        <img src="{% static 'assets/img/h.png' %}" alt="">
+                        </div>
+                    <div class="skills__img">
+                        
+                    </div>
+                </div>
+            </section>
+
+            <!--===== PORTFOLIO =====-->
+            <section class="portfolio section" id="portfolio">
+                <h2 class="section-title">Reaper Teams</h2>
+                <small><small><p style="text-align: center;">- Click on / Hover over team to view members -</p></small></small>
+
+                
+                <div class="portfolio__container bd-grid">
+
+                    {% for portfolio in portfolios %}
+                    
+                    
+                    <div class="portfolio__img">
+                        
+                        <h4 class="titlep" >{{portfolio.title }}</h4>
+                        
+                        <img src="{{ portfolio.image.url }}" alt="">
+                        
+                        <div class="portfolio__link">
+                            <small>
+                            <a href="{{ portfolio.link }}" class="portfolio__link-name">{{ portfolio.captain}}</a><br><br>
+                            <a href="{{ portfolio.link }}" class="portfolio__link-name">{{ portfolio.member1}}</a><br>
+                            <a href="{{ portfolio.link }}" class="portfolio__link-name">{{ portfolio.member2}}</a><br>
+                            <a href="{{ portfolio.link }}" class="portfolio__link-name">{{ portfolio.member3}}</a><br>
+                            <a href="{{ portfolio.link }}" class="portfolio__link-name">{{ portfolio.member4}}</a><br>
+                            <a href="{{ portfolio.link }}" class="portfolio__link-name">{{ portfolio.member6}}</a><br>
+                            <a href="{{ portfolio.link }}" class="portfolio__link-name">{{ portfolio.member5}}</a><br>
+                            </small>
+                        </div>  
+                        
+                    </div>
+
+                    {% endfor %}
+                    
+                </div>
+                
+                
+            </section>
+
+            
+
+            
+           
+
+            
+
+            <!--===== CONTACT =====-->
+            {% if not user.is_active %}
+            <section class="contact section" id="contact">
+                <h2 class="section-title">Contact</h2>
+
+                <div class="contact__container bd-grid">
+                    <div class="contact__info">
+                        <p class="contact__text"><small>- If you are interested in joining us or to organise a scrim or tournament please use the following Email address to contact us for further information.</small></p>
+                        <h3 class="contact__subtitle"><i class='bx bx-envelope'></i>&nbsp;EMAIL</h3>
+                        <span class="contact__text">reapers182@gmail.com</span>
+<!-- 
+                        <h3 class="contact__subtitle">PHONE</h3>
+                        <span class="contact__text">+20 999-999</span>
+
+                        <h3 class="contact__subtitle">ADRESS</h3>
+                        <span class="contact__text">My contry</span> -->
+                    </div>
+                    
+
+                    
+
+                    <!-- <form action="" class="contact__form">
+                        <div class="contact__inputs">
+                            <input type="text" placeholder="Name" class="contact__input">
+                            <input type="mail" placeholder="Email" class="contact__input">
+                        </div>
+
+                        <textarea name="" id="" cols="0" rows="10" class="contact__input"></textarea>
+
+                        <input type="submit" value="Enviar" class="contact__button">
+                    </form> -->
+                    
+                </div>
+                
+                
+                
+            </section>
+            {% endif %}
+            <div class="about__container" style="text-align: center; position:relative">
+                <small>
+                <p>This project and many more were created completely free !</p>
+                <p>If you want , be generous and buy the developer a coffee..</p>
+                <br>
+                <b><a id ="coffee" class="contact__text" style="font-family: 'Raleway', sans-serif; color:rgb(107, 24, 24)"
+                    href="https://www.payfast.co.za/eng/process?cmd=_paynow&amp;receiver=18013036&amp;item_name=Coffee+Donation&amp;amount=25.00"><i class='bx bx-coffee bx-burst'></i>
+                    R25 - DONATE A COFFEE !
+                </a>
+                </small>
+                </b>
+            </div>
+        
+        </main>
+
+        <!--===== FOOTER =====-->
+        <footer class="footer section" id="footer">
+            <div class="footer__container bd-grid">
+                <div class="footer__data">
+                    <h2 class="footer__title" style="font-family: 'Raleway', sans-serif;">Reapers :</h2>
+                    {% if not user.is_active %}
+                    <small></small><p class="footer__text" style="color: white;">- Thanks for the visit! </p></small>
+                    {% else %}
+                    <small>
+                    <p class="footer__text" style="color: white;">- Thanks for the visit {{ user.username|title }} ! </p></small>
+                    {% endif %}
+                </div>
+
+                <div class="footer__data">
+                    <h2 class="footer__title" style="font-family: 'Raleway', sans-serif;">EXPLORE</h2>
+                    <ul>
+                        <li><a href="#home" class="footer__link">Home</a></li>
+                        <li><a href="#about" class="footer__link">About</a></li>
+                        <li><a href="#skills" class="footer__link">Play</a></li>
+                        <li><a href="#portfolio" class="footer__link">Teams</a></li>
+                        <li><a href="#Contact" class="footer__link">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer__data">
+                    <h2 class="footer__title" style="font-family: 'Raleway', sans-serif;">FOLLOW US</h2>
+                    <a href="#" class="footer__social"><i class='bx bxl-facebook' ></i></a>
+                    <a href="https://www.instagram.com/reapers182/" class="footer__social"><i class='bx bxl-instagram' ></i></a>
+                    <a href="https://www.youtube.com/channel/UCTUvriSN3igSqBlD-B8Tc7A" class="footer__social"><i class='bx bxl-youtube' ></i></a><br><br><br>
+                
+
+
+                </div>
+
+            </div>
+            </footer>
+            
+
+        <!--===== SCROLL REVEAL =====-->
+        <script src="https://unpkg.com/scrollreveal"></script>
+
+        <!--===== MAIN JS =====-->
+        <script src="{% static 'assets/js/main.js' %}"></script>
+        <div class="2" style="text-align: center;">
+            <b><small style="text-align: center; font-family:'Raleway', sans-serif; "><small>ByMarcel&trade;</small></small>
+            </b>
+        </div>
+    </body>
+</html>
